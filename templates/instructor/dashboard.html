@@ -1,0 +1,114 @@
+ {% extends 'instructor/instructor_base.html' %}
+
+{% block content %}
+<style>
+    /* Dashboard Heading */
+.main-panel h1{
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #1c1d1f;
+}
+
+/* Cards Grid */
+.dashboard-cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+/* Cards */
+.dashboard-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.dashboard-card{
+    background:#fff;
+    padding:25px;
+    border-radius:14px;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    text-align:center;
+    transition:.25s;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-5px);
+}
+
+.dashboard-card i{
+    font-size:36px;
+    margin-bottom:10px;
+}
+
+.dashboard-card h3{
+    font-size:28px;
+    font-weight:700;
+}
+
+.dashboard-card p{
+    color:#666;
+}
+
+/* Colors */
+.courses i{color:#6a11cb;}
+.students i{color:#2575fc;}
+.earnings i{color:#4caf50;}
+.rating i{color:#ff9800;}
+
+/* Icon */
+.dashboard-card i{
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+/* Number */
+.dashboard-card h3{
+    font-size: 30px;
+    font-weight: 700;
+    margin: 6px 0;
+}
+
+/* Label */
+.dashboard-card p{
+    font-size: 14px;
+    color: #6a6f73;
+    margin: 0;
+}
+
+/* Card C*
+
+</style>
+<h1>Welcome, {{ session.instructor }} 👋</h1>
+  <!-- Cards -->
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card courses">
+                <i class="fa-solid fa-book"></i>
+                <h3>{{ total_courses }}</h3>
+                <p>Total Courses</p>
+            </div>
+
+            <div class="dashboard-card students">
+                <i class="fa-solid fa-users"></i>
+                <h3>{{ total_students }}</h3>
+                <p>Total Students</p>
+            </div>
+
+            <div class="dashboard-card earnings">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+                <h3>₹ {{ total_earnings }}</h3>
+                <p>Total Earnings</p>
+            </div>
+
+            <div class="dashboard-card rating">
+                <i class="fa-solid fa-star"></i>
+                <h3> 2,111</h3>
+                <p>Average Rating</p>
+            </div>
+
+        </div>
+
+
+{% endblock %}

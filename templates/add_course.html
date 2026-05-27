@@ -1,0 +1,57 @@
+ {% extends 'base.html' %}
+{% block content %}
+<style>
+  .course-form {
+    width: 420px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.course-form input,
+.course-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.course-form button {
+    width: 100%;
+    padding: 10px;
+    background: #2575fc;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.course-form button:hover {
+    background: #1e63d6;
+}
+
+</style>
+<h2 style="text-align:center">Add Course</h2>
+
+<form method="POST" enctype="multipart/form-data" class="course-form">
+
+    <input type="text" name="title" placeholder="Course Title" required>
+
+    <input type="number" name="price" placeholder="Price" required>
+
+    <textarea name="description"
+              placeholder="Course Description"
+              rows="4"
+              required></textarea>
+
+    <input type="file" name="image" required>
+
+    <button type="submit">Add Course</button>
+
+</form>
+
+{% endblock %}

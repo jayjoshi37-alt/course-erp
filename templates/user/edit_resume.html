@@ -1,0 +1,171 @@
+{% extends 'user/user_base.html' %}
+{% block content %}
+
+<style>
+/* Use same CSS as resume_input.html for consistency */
+body { background: #f4f6f8; font-family: "Segoe UI", Arial, sans-serif; }
+.resume-form { max-width: 900px; margin: 30px auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+.resume-form h2 { text-align: center; margin-bottom: 25px; color: #2c3e50; }
+.section { margin-bottom: 25px; }
+.section-title { font-size: 18px; font-weight: bold; color: #34495e; margin-bottom: 10px; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
+.input-group { margin-bottom: 10px; }
+input, textarea { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+textarea { resize: vertical; }
+button.add-btn { margin-top: 5px; background: #3498db; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+button.add-btn:hover { background: #2980b9; }
+.submit-btn { width: 100%; background: #27ae60; color: #fff; padding: 12px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; }
+.submit-btn:hover { background: #1e8449; }
+.inline { display: flex; gap: 10px; }
+.inline input { flex: 1; }
+.project-group, .experience-group { margin-bottom: 10px; }
+</style>
+
+<div class="resume-form">
+    <h2>Edit Your Resume</h2>
+    <form method="POST" enctype="multipart/form-data">
+
+        <!-- BASIC INFO -->
+        <div class="section">
+            <div class="section-title">Basic Information</div>
+            <div class="input-group"><input type="text" name="name" value="{{ resume.name }}" required></div>
+            <div class="input-group"><input type="text" name="mobile" value="{{ resume.mobile }}" required></div>
+            <div class="input-group"><input type="email" name="email" value="{{ resume.email }}" required></div>
+            <div class="input-group"><textarea name="address">{{ resume.address }}</textarea></div>
+            <div class="input-group">
+                {% if resume.photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + resume.photo) }}" width="100" style="margin-bottom:10px;"><br>
+                {% endif %}
+                <input type="file" name="photo">
+            </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section">
+            <div class="section-title">Professional Summary</div>
+            <textarea name="summary">{{ resume.summary }}</textarea>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="section">
+            <div class="section-title">Skills</div>
+            <textarea name="skills">{{ resume.skills }}</textarea>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="section">
+            <div class="section-title">Education</div>
+            <input type="text" name="education_10" value="{{ resume.education_10 }}">
+            <input type="text" name="education_12" value="{{ resume.education_12 }}">
+            <input type="text" name="education_degree" value="{{ resume.education_degree }}">
+            <input type="text" name="education_pg" value="{{ resume.education_pg }}">
+        </div>
+
+        <!-- CERTIFICATES -->
+        <div class="section">
+            <div class="section-title">Certificates</div>
+            <div id="certificate-box">
+                {% if resume.certificates %}
+                    {% for cert in resume.certificates.split(',') %}
+                        {% set name, institute = cert.split('(') %}
+                        <div class="inline input-group">
+                            <input type="text" name="certificate_name[]" value="{{ name.strip() }}">
+                            <input type="text" name="certificate_institute[]" value="{{ institute[:-1].strip() }}">
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="inline input-group">
+                        <input type="text" name="certificate_name[]" placeholder="Certificate Name">
+                        <input type="text" name="certificate_institute[]" placeholder="Institute">
+                    </div>
+                {% endif %}
+            </div>
+            <button type="button" class="add-btn" onclick="addCertificate()">+ Add Certificate</button>
+        </div>
+
+        <!-- PROJECTS -->
+        <div class="section">
+            <div class="section-title">Projects</div>
+            <div id="project-box">
+                {% if resume.projects %}
+                    {% for proj in resume.projects.split(',') %}
+                        {% set title, desc = proj.split(' - ', 1) %}
+                        <div class="project-group">
+                            <input type="text" name="project_title[]" value="{{ title.strip() }}">
+                            <textarea name="project_desc[]">{{ desc.strip() }}</textarea>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="project-group">
+                        <input type="text" name="project_title[]" placeholder="Project Title">
+                        <textarea name="project_desc[]" placeholder="Project Description"></textarea>
+                    </div>
+                {% endif %}
+            </div>
+            <button type="button" class="add-btn" onclick="addProject()">+ Add Project</button>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="section">
+            <div class="section-title">Experience</div>
+            <div id="experience-box">
+                {% if resume.experiences %}
+                    {% for exp in resume.experiences.split(',') %}
+                        {% set title, desc = exp.split(' - ', 1) %}
+                        <div class="experience-group">
+                            <input type="text" name="experience_title[]" value="{{ title.strip() }}">
+                            <textarea name="experience_desc[]">{{ desc.strip() }}</textarea>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="experience-group">
+                        <input type="text" name="experience_title[]" placeholder="Job Title">
+                        <textarea name="experience_desc[]" placeholder="Company – Duration – Description"></textarea>
+                    </div>
+                {% endif %}
+            </div>
+            <button type="button" class="add-btn" onclick="addExperience()">+ Add Experience</button>
+        </div>
+
+        <!-- LINKS -->
+        <div class="section">
+            <div class="section-title">Links</div>
+            <input type="text" name="linkedin" value="{{ resume.linkedin }}">
+            <input type="text" name="github" value="{{ resume.github }}">
+        </div>
+
+        <button type="submit" class="submit-btn">Update Resume</button>
+    </form>
+</div>
+
+<script>
+function addCertificate() {
+    document.getElementById('certificate-box').insertAdjacentHTML(
+        'beforeend',
+        `<div class="inline input-group">
+            <input type="text" name="certificate_name[]" placeholder="Certificate Name">
+            <input type="text" name="certificate_institute[]" placeholder="Institute">
+        </div>`
+    );
+}
+function addProject() {
+    document.getElementById('project-box').insertAdjacentHTML(
+        'beforeend',
+        `<div class="project-group">
+            <input type="text" name="project_title[]" placeholder="Project Title">
+            <textarea name="project_desc[]" placeholder="Project Description"></textarea>
+        </div>`
+    );
+}
+function addExperience() {
+    document.getElementById('experience-box').insertAdjacentHTML(
+        'beforeend',
+        `<div class="experience-group">
+            <input type="text" name="experience_title[]" placeholder="Job Title">
+            <textarea name="experience_desc[]" placeholder="Company – Duration – Description"></textarea>
+        </div>`
+    );
+}
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,247 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>User Panel | Institute ERP</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body{
+            margin:0;
+            font-family:"Segoe UI",sans-serif;
+            background:#f4f6f9;
+        }
+
+        /* ================= HEADER ================= */
+        .colorful-header{
+            height:60px;
+            background:linear-gradient(90deg,#6a11cb,#ff6a00);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 25px;
+            color:#fff;
+        }
+
+        .logo{
+            font-size:20px;
+            font-weight:600;
+        }
+
+        .logout-btn{
+            background: linear-gradient(135deg, #111111, #333333);
+            border:none;
+            padding:8px 20px;
+            color:#fff;
+            border-radius:30px;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logout-btn:hover{
+            transform:scale(1.05);
+        }
+
+        /* ================= LAYOUT ================= */
+        .user-container{
+            display:flex;
+            height:calc(100vh - 60px);
+        }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar{
+            width:230px;
+            background:#1f2937;
+            color:#fff;
+            padding:20px;
+        }
+
+        .sidebar h2{
+            text-align:center;
+            margin-bottom:25px;
+        }
+
+        .sidebar a{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            padding:10px;
+            border-radius:6px;
+            text-decoration:none;
+            color:#ddd;
+            margin-bottom:6px;
+            transition:.25s;
+            font-size:15px;
+        }
+
+        .sidebar a:hover{
+            background:#374151;
+            color:#fff;
+        }
+
+        /* ❤️ Wishlist special highlight */
+        .wishlist-link{
+            background: rgba(239,68,68,0.15);
+            color:#fecaca;
+            font-weight:600;
+        }
+
+        .wishlist-link:hover{
+            background:#ef4444;
+            color:#fff;
+        }
+
+        /* ================= SUBMENU ================= */
+        .submenu-items{
+            margin-left:25px;
+        }
+
+        .submenu-items a{
+            font-size:14px;
+            padding:8px;
+            color:#cbd5e1;
+        }
+
+        .submenu-items a:hover{
+            background:#374151;
+            color:#fff;
+        }
+
+        /* ================= CONTENT ================= */
+        .main-content{
+            flex:1;
+            padding:30px;
+            overflow-y:auto;
+        }
+
+        /* ================= FLASH POPUP ================= */
+        .popup-wrapper {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 9999;
+        }
+
+        .popup {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 22px;
+            border-radius: 12px;
+            font-weight: 600;
+            color: #fff;
+            min-width: 260px;
+            margin-bottom: 12px;
+            animation: slideFade 4s forwards;
+        }
+
+        .popup-success { background: #16a34a; }
+        .popup-danger  { background: #dc2626; }
+        .popup-warning { background: #f59e0b; }
+        .popup-info    { background: #2563eb; }
+
+        .popup-icon {
+            background: rgba(255,255,255,0.25);
+            padding: 6px 10px;
+            border-radius: 50%;
+        }
+
+        @keyframes slideFade {
+            0%   { opacity: 0; transform: translateX(120%); }
+            10%  { opacity: 1; transform: translateX(0); }
+            80%  { opacity: 1; }
+            100% { opacity: 0; transform: translateX(120%); }
+        }
+
+        @media(max-width:768px){
+            .user-container{
+                flex-direction:column;
+            }
+            .sidebar{
+                width:100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="colorful-header">
+    <div class="logo">Institute ERP</div>
+
+    <a href="{{ url_for('user_logout') }}">
+        <button class="logout-btn">Logout</button>
+    </a>
+</header>
+
+<!-- ================= FLASH MESSAGES ================= -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="popup-wrapper">
+    {% for category, message in messages %}
+    <div class="popup popup-{{ category }}">
+        <span class="popup-icon">✔</span>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<!-- ================= BODY ================= -->
+<div class="user-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2><i class="fa-solid fa-user"></i> User Panel</h2>
+
+        <a href="{{ url_for('user_dashboard') }}">
+            <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+
+        <a href="{{ url_for('my_registered_courses') }}">
+            <i class="fa-solid fa-book"></i> My Courses
+        </a>
+
+        <a href="{{ url_for('my_certificates') }}">
+            <i class="fa-solid fa-certificate"></i> My Certificates
+        </a>
+
+        <a href="{{ url_for('user_change_password') }}">
+            <i class="fa-solid fa-key"></i> Change Password
+        </a>
+
+        <!-- ❤️ WISHLIST (FIXED & STYLED) -->
+        <a href="{{ url_for('user_wishlist') }}" class="wishlist-link">
+            ❤️ Wishlist
+        </a>
+
+        <!-- RESUME BUILDER -->
+        <a href="#">
+            <i class="fa-solid fa-file-lines"></i> Resume Builder
+        </a>
+
+        <div class="submenu-items">
+            <a href="{{ url_for('resume_input') }}">
+                ✏ Input Data
+            </a>
+            <a href="{{ url_for('select_template') }}">
+                📄 Generate Resume
+            </a>
+        </div>
+
+        <a href="{{ url_for('user_logout') }}">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+    </aside>
+
+    <!-- PAGE CONTENT -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+{% extends 'user/user_base.html' %}
+{% block content %}
+
+<style>
+.receipt-wrapper{
+    max-width:500px;
+    margin:60px auto;
+    background:#fff;
+    border-radius:16px;
+    padding:30px;
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+    text-align:center;
+}
+.success-icon{
+    font-size:60px;
+    color:#22c55e;
+    margin-bottom:15px;
+}
+.receipt-wrapper h2{
+    margin-bottom:10px;
+}
+.receipt-details{
+    margin-top:25px;
+    text-align:left;
+}
+.receipt-details div{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px dashed #ddd;
+}
+.receipt-details span{
+    color:#6b7280;
+}
+.amount{
+    font-size:24px;
+    font-weight:700;
+    color:#6a11cb;
+}
+.back-btn{
+    margin-top:30px;
+    display:inline-block;
+    padding:12px 26px;
+    border-radius:10px;
+    background:#6a11cb;
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+}
+.back-btn:hover{
+    background:#5b0fbf;
+}
+</style>
+
+<div class="receipt-wrapper">
+    <div class="success-icon">✅</div>
+    <h2>Payment Successful</h2>
+    <p>Your transaction has been completed</p>
+
+    <div class="receipt-details">
+        <div>
+            <span>Transaction ID</span>
+            <strong>{{ receipt.transaction_id }}</strong>
+        </div>
+        <div>
+            <span>Date</span>
+            <strong>{{ receipt.date }}</strong>
+        </div>
+        <div>
+            <span>Course</span>
+            <strong>{{ receipt.course_name }}</strong>
+        </div>
+        <div>
+            <span>Amount Paid</span>
+            <strong class="amount">₹ {{ receipt.amount }}</strong>
+        </div>
+    </div>
+
+      <a href="{{ url_for('course_detail', course_id=receipt.course_id) }}" class="back-btn">
+          ▶ Go to Course
+      </a>
+</div>
+
+{% endblock %}

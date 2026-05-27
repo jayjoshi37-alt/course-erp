@@ -1,0 +1,103 @@
+ {% extends 'instructor/instructor_base.html' %}
+
+{% block content %}
+<style>
+.create-course-wrapper{
+    max-width:600px;
+    margin:40px auto;
+    background:#ffffff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 6px 16px rgba(0,0,0,0.08);
+}
+
+.create-course-wrapper h2{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:22px;
+    font-weight:600;
+    color:#333;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:500;
+    color:#444;
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:14px;
+}
+
+.form-group textarea{
+    resize:none;
+    height:110px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+    outline:none;
+    border-color:#6a11cb;
+}
+
+.file-input{
+    padding:8px;
+}
+
+.create-btn{
+    width:100%;
+    padding:12px;
+    background:#6a11cb;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:15px;
+    font-weight:500;
+    cursor:pointer;
+}
+
+.create-btn:hover{
+    background:#5a0fc0;
+}
+
+</style>
+
+<div class="create-course-wrapper">
+    <h2>Create New Course</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Course Title</label>
+            <input type="text" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Price (₹)</label>
+            <input type="number" name="price" required>
+        </div>
+
+        <div class="form-group">
+            <label>Course Image</label>
+            <input type="file" name="image" class="file-input" required>
+        </div>
+
+        <button type="submit" class="create-btn">Create Course</button>
+    </form>
+</div>
+
+{% endblock %}

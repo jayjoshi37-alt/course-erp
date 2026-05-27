@@ -1,0 +1,107 @@
+ {% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<style>
+h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.table-wrapper {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+thead th {
+    background: #2c3e50;
+    color: #ffffff;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
+}
+
+.rating {
+    font-weight: bold;
+    color: #f39c12;
+}
+
+.review-text {
+    max-width: 380px;
+    line-height: 1.5;
+}
+
+.btn-delete {
+    padding: 6px 14px;
+    background: #e74c3c;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+}
+
+.no-data {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+</style>
+
+<h2>Course Reviews</h2>
+
+<div class="table-wrapper">
+<table>
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>User</th>
+            <th>Rating</th>
+            <th>Review</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if reviews %}
+            {% for r in reviews %}
+            <tr>
+                <td>{{ r[1] }}</td>
+                <td>{{ r[2] }}</td>
+                <td class="rating">⭐ {{ r[3] }}/5</td>
+                <td class="review-text">{{ r[4] }}</td>
+                <td>
+                    <a href="{{ url_for('delete_review', review_id=r[0]) }}"
+                       class="btn-delete"
+                       onclick="return confirm('Delete this review?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="5" class="no-data">No reviews available</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,249 @@
+{% extends 'user/user_base.html' %}
+{% block content %}
+
+<style>
+body {
+    background: #f4f6f8;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.resume-form {
+    max-width: 900px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.resume-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button.add-btn {
+    margin-top: 5px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+button.add-btn:hover {
+    background: #2980b9;
+}
+
+.submit-btn {
+    width: 100%;
+    background: #27ae60;
+    color: #fff;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #1e8449;
+}
+
+.inline {
+    display: flex;
+    gap: 10px;
+}
+
+.inline input {
+    flex: 1;
+}
+
+.edit-action {
+    margin-top: 15px;
+}
+
+.btn-edit {
+    background: #f3f4f6;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+.project-group, .experience-group {
+    margin-bottom: 10px;
+}
+.edit-action {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.btn-edit {
+    background: #f3f4f6;
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 500;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+.btn-edit:hover {
+    background: #e0e0e0;
+    border-color: #999;
+}
+
+</style>
+
+<div class="resume-form">
+    <h2>Create Your Resume</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <!-- BASIC INFO -->
+        <div class="section">
+            <div class="section-title">Basic Information</div>
+            <div class="input-group"><input type="text" name="name" placeholder="Full Name" required></div>
+            <div class="input-group"><input type="text" name="mobile" placeholder="Mobile Number" required></div>
+            <div class="input-group"><input type="email" name="email" placeholder="Email" required></div>
+            <div class="input-group"><textarea name="address" placeholder="Address"></textarea></div>
+            <div class="input-group"><input type="file" name="photo"></div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section">
+            <div class="section-title">Professional Summary</div>
+            <textarea name="summary" placeholder="Short profile summary"></textarea>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="section">
+            <div class="section-title">Skills</div>
+            <textarea name="skills" placeholder="Python, Flask, HTML, CSS, MySQL"></textarea>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="section">
+            <div class="section-title">Education</div>
+            <input type="text" name="education_10" placeholder="10th Details">
+            <input type="text" name="education_12" placeholder="12th Details">
+            <input type="text" name="education_degree" placeholder="Degree / Graduation">
+            <input type="text" name="education_pg" placeholder="Degree / Post Graduation">
+        </div>
+
+        <!-- CERTIFICATES -->
+        <div class="section">
+            <div class="section-title">Certificates</div>
+            <div id="certificate-box">
+                <div class="inline input-group">
+                    <input type="text" name="certificate_name[]" placeholder="Certificate Name">
+                    <input type="text" name="certificate_institute[]" placeholder="Institute">
+                </div>
+            </div>
+            <button type="button" class="add-btn" onclick="addCertificate()">+ Add Certificate</button>
+        </div>
+
+        <!-- PROJECTS -->
+        <div class="section">
+            <div class="section-title">Projects</div>
+            <div id="project-box">
+                <div class="project-group">
+                    <input type="text" name="project_title[]" placeholder="Project Title">
+                    <textarea name="project_desc[]" placeholder="Project Description"></textarea>
+                </div>
+            </div>
+            <button type="button" class="add-btn" onclick="addProject()">+ Add Project</button>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="section">
+            <div class="section-title">Experience</div>
+            <div id="experience-box">
+                <div class="experience-group">
+                    <input type="text" name="experience_title[]" placeholder="Job Title">
+                    <textarea name="experience_desc[]" placeholder="Company – Duration – Description"></textarea>
+                </div>
+            </div>
+            <button type="button" class="add-btn" onclick="addExperience()">+ Add Experience</button>
+        </div>
+
+        <!-- LINKS -->
+        <div class="section">
+            <div class="section-title">Links</div>
+            <input type="text" name="linkedin" placeholder="LinkedIn Profile URL">
+            <input type="text" name="github" placeholder="GitHub Profile URL">
+        </div>
+
+        <button type="submit" class="submit-btn">Create Resume</button>
+        <div class="edit-action">
+    <a href="{{ url_for('edit_resume') }}" class="btn-edit">Edit Existing Resume</a>
+</div>
+
+    </form>
+</div>
+
+<script>
+function addCertificate() {
+    document.getElementById('certificate-box').insertAdjacentHTML(
+        'beforeend',
+        `<div class="inline input-group">
+            <input type="text" name="certificate_name[]" placeholder="Certificate Name">
+            <input type="text" name="certificate_institute[]" placeholder="Institute">
+        </div>`
+    );
+}
+
+function addProject() {
+    document.getElementById('project-box').insertAdjacentHTML(
+        'beforeend',
+        `<div class="project-group">
+            <input type="text" name="project_title[]" placeholder="Project Title">
+            <textarea name="project_desc[]" placeholder="Project Description"></textarea>
+        </div>`
+    );
+}
+
+function addExperience() {
+    document.getElementById('experience-box').insertAdjacentHTML(
+        'beforeend',
+        `<div class="experience-group">
+            <input type="text" name="experience_title[]" placeholder="Job Title">
+            <textarea name="experience_desc[]" placeholder="Company – Duration – Description"></textarea>
+        </div>`
+    );
+}
+</script>
+
+{% endblock %}

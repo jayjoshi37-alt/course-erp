@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* ===== Main Content ===== */
+.main-content {
+    flex-grow: 1;
+    background: #f2f2f2;
+    padding: 30px;
+}
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+/* ===== Flash Messages ===== */
+p.success {
+    color: green;
+}
+p.danger {
+    color: red;
+}
+/* --- Auth Page Wrapper --- */
+.auth-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: Poppins, sans-serif;
+}
+/* --- Card --- */
+.auth-container .card {
+    width: 350px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+}
+/* Heading */
+.auth-container .card h2 {
+    margin-bottom: 20px;
+    color: #5a36f0;
+    font-weight: 600;
+}
+/* Inputs */
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+    font-size: 15px;
+}
+.auth-container input:focus {
+    border-color: #5a36f0;
+    box-shadow: 0 0 5px rgba(90,54,240,0.3);
+    outline: none;
+}
+/* Button */
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #5a36f0;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.auth-container button:hover {
+    background: #4828d6;
+}
+/* Links Text */
+.auth-container p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+.auth-container a {
+    color: #5a36f0;
+    text-decoration: none;
+    font-weight: 600;
+}
+.auth-container a:hover {
+    text-decoration: underline;
+}
+/* Flash Message Styling */
+.success {
+    background: #d4edda;
+    color: #155724;
+    padding: 8px;
+    border-left: 4px solid #28a745;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.danger {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 8px;
+    border-left: 4px solid #dc3545;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+/* ----------- REGISTER PAGE STYLING (Same Look as Login) ----------- */
+/* Card Title (Optional Different Color for Register) */
+.auth-container .card h2 {
+    margin-bottom: 20px;
+    color: #5a36f0;    /* Change to another color if you want */
+    font-weight: 600;
+}
+/* Input fields same style as login */
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+    font-size: 15px;
+}
+.auth-container input:focus {
+    border-color: #5a36f0;
+    box-shadow: 0 0 5px rgba(90,54,240,0.3);
+    outline: none;
+}
+/* Register Button look */
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #5a36f0;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.auth-container button:hover {
+    background: #4828d6;
+}
+/* Flash messages */
+.success {
+    background: #d4edda;
+    color: #155724;
+    padding: 8px;
+    border-left: 4px solid #28a745;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.danger {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 8px;
+    border-left: 4px solid #dc3545;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+</style>
+<div class="auth-container">
+    <div class="card">
+        <h2>User Login</h2>
+
+
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
+        <p>
+    <a href="{{ url_for('user_forgot_password') }}">Forgot Password?</a>
+</p>
+
+    </div>
+</div>
+{% endblock %}

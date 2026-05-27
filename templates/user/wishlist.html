@@ -1,0 +1,137 @@
+ {% extends 'user/user_base.html' %}
+{% block content %}
+
+<style>
+/* ================= WISHLIST PAGE ================= */
+.wishlist-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 25px;
+}
+
+/* Card */
+.wishlist-card {
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.wishlist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.15);
+}
+
+/* Image */
+.wishlist-card img {
+    object-fit: cover;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Body */
+.wishlist-body {
+    padding: 16px;
+}
+
+.wishlist-body h5 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #111827;
+}
+
+.wishlist-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #6a11cb;
+    margin-bottom: 12px;
+}
+
+/* Buttons */
+.btn-view {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: #fff;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.btn-view:hover {
+    opacity: 0.9;
+    color: #fff;
+}
+
+.btn-remove {
+    background: #ef4444;
+    color: #fff;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.btn-remove:hover {
+    background: #dc2626;
+    color: #fff;
+}
+
+/* Empty */
+.empty-wishlist {
+    background: #f9fafb;
+    padding: 30px;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #6b7280;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .wishlist-title {
+        text-align: center;
+    }
+}
+</style>
+
+<div class="container mt-4">
+    <h3 class="wishlist-title">❤️ My Wishlist</h3>
+
+    {% if wishlist %}
+    <div class="row">
+        {% for course in wishlist %}
+        <div class="col-md-4 mb-4">
+            <div class="card wishlist-card h-100">
+
+                <img src="{{ url_for('static', filename='uploads/' ~ course[2]) }}"
+                     class="card-img-top" height="180">
+
+                <div class="wishlist-body">
+                    <h5>{{ course[1] }}</h5>
+                    <div class="wishlist-price">₹ {{ course[3] }}</div>
+
+                    <a href="{{ url_for('course_detail', course_id=course[0]) }}"
+                       class="btn-view">
+                        View Course
+                    </a>
+
+                    <a href="{{ url_for('remove_from_wishlist', course_id=course[0]) }}"
+                       class="btn-remove float-end">
+                        Remove
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="empty-wishlist">
+            No courses in your wishlist yet 💔
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

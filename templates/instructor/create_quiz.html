@@ -1,0 +1,95 @@
+ {% extends 'instructor/instructor_base.html' %}
+
+{% block content %}
+<style>
+    body{
+        font-family: Segoe UI, sans-serif;
+        background:#f4f6f9;
+    }
+    .container{
+        max-width:900px;
+        margin:40px auto;
+        background:#fff;
+        padding:25px;
+        border-radius:14px;
+        box-shadow:0 10px 30px rgba(0,0,0,.15);
+    }
+    h2{ margin-bottom:20px; color:#111827; }
+    input, select{
+        width:100%;
+        padding:10px;
+        margin-top:6px;
+        margin-bottom:14px;
+        border-radius:8px;
+        border:1px solid #d1d5db;
+    }
+    .question-box{
+        background:#f9fafb;
+        padding:15px;
+        border-radius:12px;
+        margin-bottom:18px;
+    }
+    .options{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    }
+    .btn{
+        padding:12px 18px;
+        border:none;
+        border-radius:10px;
+        cursor:pointer;
+        font-size:15px;
+    }
+    .btn-primary{ background:#2563eb; color:white; }
+    .btn-add{ background:#10b981; color:white; margin-bottom:15px; }
+</style>
+
+<script>
+function addQuestion(){
+    const q = document.querySelector(".question-box").cloneNode(true);
+    q.querySelectorAll("input").forEach(i => i.value = "");
+    q.querySelector("select").selectedIndex = 0;
+    document.getElementById("questions").appendChild(q);
+}
+</script>
+
+<div class="container">
+    <h2>Create Quiz</h2>
+
+    <form method="POST">
+        <label>Quiz Title</label>
+        <input type="text" name="title" required>
+
+        <label>Pass Percentage</label>
+        <input type="number" name="pass_percentage" required>
+
+        <div id="questions">
+            <div class="question-box">
+                <label>Question</label>
+                <input type="text" name="question[]" required>
+
+                <div class="options">
+                    <input type="text" name="a[]" placeholder="Option A" required>
+                    <input type="text" name="b[]" placeholder="Option B" required>
+                    <input type="text" name="c[]" placeholder="Option C" required>
+                    <input type="text" name="d[]" placeholder="Option D" required>
+                </div>
+
+                <label>Correct Answer</label>
+                <select name="correct[]" required>
+                    <option value="">Select</option>
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="d">D</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-add" onclick="addQuestion()">+ Add Question</button>
+        <br><br>
+        <button class="btn btn-primary">Create Quiz</button>
+    </form>
+</div>
+{% endblock %}

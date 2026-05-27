@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* ===== Container ===== */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+}
+
+/* ===== Card ===== */
+.auth-container .card {
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.auth-container .card:hover {
+    transform: translateY(-5px);
+}
+
+/* ===== Heading ===== */
+.auth-container .card h2 {
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* ===== Flash Messages ===== */
+.auth-container .card p.success {
+    color: green;
+    margin-bottom: 10px;
+}
+
+.auth-container .card p.error {
+    color: red;
+    margin-bottom: 10px;
+}
+
+/* ===== Input Fields ===== */
+.auth-container .card input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.auth-container .card input:focus {
+    border-color: #6a11cb;
+    outline: none;
+}
+
+/* ===== Button ===== */
+.auth-container .card button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #6a11cb;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.auth-container .card button:hover {
+    background: #2575fc;
+}
+
+/* ===== Link ===== */
+.auth-container .card p a {
+    color: #6a11cb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.auth-container .card p a:hover {
+    color: #2575fc;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 480px) {
+    .auth-container .card {
+        padding: 30px 20px;
+    }
+
+    .auth-container .card h2 {
+        font-size: 24px;
+    }
+}
+
+</style>
+<div class="auth-container">
+    <div class="card">
+        <h2>User Register</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+            <p class="{{ category }}">{{ message }}</p>
+          {% endfor %}
+        {% endwith %}
+
+        <form method="POST">
+            <input type="text" name="name" placeholder="Enter Full Name" required>
+            <input type="email" name="email" placeholder="Enter Email Address" required>
+            <input type="text" name="username" placeholder="Create Username" required>
+            <input type="password" name="password" placeholder="Create Password" required>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+    </div>
+</div>
+{% endblock %}
+

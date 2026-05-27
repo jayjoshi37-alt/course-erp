@@ -1,0 +1,418 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Screen Slider</title>
+    <link rel="stylesheet" href="style.css">
+
+<div class="slider">
+    <div class="slides">
+        <div class="slide"><img src="static/images/erp1.jpg" alt="Slide 1"></div>
+        <div class="slide"><img src="static/images/erp2.jpg" alt="Slide 2"></div>
+        <div class="slide"><img src="static/images/erp3.jpg" alt="Slide 3"></div>
+    </div>
+</div>
+
+
+<section class="popular-section">
+    <h2 class="popular-title">Popular Courses</h2>
+
+    <div class="course-circles-container">
+        <div class="course-circle-container">
+            <div class="course-circle"><img src="static/images/python.png"></div>
+        </div>
+        <div class="course-circle-container">
+            <div class="course-circle"><img src="static/images/js.png"></div>
+        </div>
+        <div class="course-circle-container">
+            <div class="course-circle"><img src="static/images/aspnet.png"></div>
+        </div>
+        <div class="course-circle-container">
+            <div class="course-circle"><img src="static/images/java.png"></div>
+        </div>
+        <div class="course-circle-container">
+            <div class="course-circle"><img src="static/images/webdev.png"></div>
+        </div>
+    </div>
+    </div>
+</section>
+&nbsp;
+    <h1 style="text-align:center; font-size:28px; font-weight:bold;
+color:#ff4d4d; text-decoration:underline;">Courses</h1>
+&nbsp;
+
+<div class="course-row">
+  <div class="course-card">
+    <img src="static/images/pythonbootcamp.png" alt="Course Image">
+    <div class="course-info">
+      <h3>The Complete Python Bootcamp</h3>
+      <p class="author">Jose Portilla</p>
+      <div class="rating">⭐ 4.7 <span>(553,252)</span></div>
+        <div class="price">
+  <span class="new-price">₹499</span>
+  <span class="old-price">₹2,999</span>
+</div>
+                <!-- Form starts here -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title" value="The Complete Python Bootcamp">
+            <input type="hidden" name="price" value="499">
+            <input type="hidden" name="img" value="static/images/pythonbootcamp.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+        <!-- Form ends here -->
+    </div>
+  </div>
+
+  <div class="course-card">
+    <img src="static/images/cource1.png" alt="Course Image">
+    <div class="course-info">
+      <h3>JavaScript Programming Made Easy for Beginners</h3>
+      <p class="author">Dr. Angela Yu</p>
+      <div class="rating">⭐ 4.6 <span>(120,000)</span></div>
+         <div class="price">
+  <span class="new-price">₹599</span>
+  <span class="old-price">₹1,999</span>
+</div>
+        <!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title" value="JavaScript Programming Made Easy for Beginners">
+            <input type="hidden" name="price" value="599">
+            <input type="hidden" name="img" value="static/images/cource1.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+    </div>
+  </div>
+
+     <div class="course-card">
+    <img src="static/images/cource2.png" alt="Course Image">
+    <div class="course-info">
+      <h3>Java for Beginners</h3>
+      <p class="author"> Ed Donne</p>
+      <div class="rating">⭐ 4.5 <span>(120,000)</span></div>
+        <div class="price">
+  <span class="new-price">₹499</span>
+  <span class="old-price">₹1,999</span>
+</div>
+ <!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title" value="Java for Beginners">
+            <input type="hidden" name="price" value="499">
+            <input type="hidden" name="img" value="static/images/cource2.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+    </div>
+  </div>
+
+     <div class="course-card">
+    <img src="static/images/cource3.png" alt="Course Image">
+    <div class="course-info">
+      <h3>Complete A.I. and Machine Learning, Data Science Bootcamp</h3>
+      <p class="author">Stephane Maarek</p>
+      <div class="rating">⭐ 4.8 <span>(120,000)</span></div>
+        <div class="price">
+  <span class="new-price">₹699</span>
+  <span class="old-price">₹1,999</span>
+</div>
+ <!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title"
+                   value="Complete A.I. and Machine Learning, Data Science Bootcamp">
+            <input type="hidden" name="price" value="699">
+            <input type="hidden" name="img" value="static/images/cource3.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+    </div>
+  </div>
+
+     <div class="course-card">
+    <img src="static/images/cource4.png" alt="Course Image">
+    <div class="course-info">
+      <h3>Complete UI & UX Cource </h3>
+      <p class="author">  Anna Karenina</p>
+      <div class="rating">⭐ 4.4 <span>(120,000)</span></div>
+         <div class="price">
+  <span class="new-price">₹999</span>
+  <span class="old-price">₹1,999</span>
+</div>
+ <!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title" value="Complete UI & UX Course">
+            <input type="hidden" name="price" value="999">
+            <input type="hidden" name="img" value="static/images/cource4.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+    </div>
+  </div>
+
+     <div class="course-card">
+    <img src="static/images/cource5.png" alt="Course Image">
+    <div class="course-info">
+      <h3>Complete AI Engineer Bootcamp</h3>
+      <p class="author">Stephane Maarek</p>
+      <div class="rating">⭐ 4.5 <span>(120,000)</span></div>
+        <div class="price">
+  <span class="new-price">₹899</span>
+  <span class="old-price">₹999</span>
+</div>
+ <!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title" value="Complete AI Engineer Bootcamp">
+            <input type="hidden" name="price" value="899">
+            <input type="hidden" name="img" value="static/images/cource5.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+    </div>
+  </div>
+
+    <div class="course-card">
+    <img src="static/images/cource6.png" alt="Course Image">
+    <div class="course-info">
+      <h3> The Ultimate React Course 2025: React, Next.js, Redux & More</h3>
+      <p class="author">Stephane Maarek</p>
+      <div class="rating">⭐ 4.2 <span>(120,000)</span></div>
+        <div class="price">
+  <span class="new-price">₹999</span>
+  <span class="old-price">₹1,999</span>
+</div>
+  <!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title"
+                   value="The Ultimate React Course 2025: React, Next.js, Redux & More">
+            <input type="hidden" name="price" value="999">
+            <input type="hidden" name="img" value="static/images/cource7.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+    </div>
+  </div>
+
+     <div class="course-card">
+    <img src="static/images/cource7.png" alt="Course Image">
+    <div class="course-info">
+      <h3> The Ultimate React Course 2025: React, Next.js, Redux & More</h3>
+      <p class="author">Stephane Maarek</p>
+      <div class="rating">⭐ 4.2 <span>(120,000)</span></div>
+        <div class="price">
+  <span class="new-price">₹999</span>
+  <span class="old-price">₹1,999</span>
+</div>
+  <!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title"
+                   value="The Ultimate React Course 2025: React, Next.js, Redux & More">
+            <input type="hidden" name="price" value="999">
+            <input type="hidden" name="img" value="static/images/cource7.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+    </div>
+  </div>
+
+     <div class="course-card">
+    <img src="static/images/cource8.png" alt="Course Image">
+    <div class="course-info">
+      <h3> Complete Data Analyst Bootcamp Basics To Advanced</h3>
+      <p class="author"> Dr. Kristin Sainani.</p>
+      <div class="rating">⭐ 4.1 <span>(120,000)</span></div>
+        <div class="price">
+  <span class="new-price">₹499</span>
+  <span class="old-price">₹2,999</span>
+</div>
+  <!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title"
+                   value="Complete Data Analyst Bootcamp: Basics to Advanced">
+            <input type="hidden" name="price" value="499">
+            <input type="hidden" name="img" value="static/images/cource8.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+     </div>
+  </div>
+
+     <div class="course-card">
+    <img src="static/images/cource9.png" alt="Course Image">
+    <div class="course-info">
+      <h3> Generative AI For Begineers </h3>
+      <p class="author"> Amy Bloom</p>
+      <div class="rating">⭐ 4.6 <span>(120,000)</span></div>
+        <div class="price">
+  <span class="new-price">₹499</span>
+  <span class="old-price">₹1,999</span>
+</div>
+ <!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title" value="Generative AI for Beginners">
+            <input type="hidden" name="price" value="499">
+            <input type="hidden" name="img" value="static/images/cource9.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+     </div>
+  </div>
+
+     <div class="course-card">
+    <img src="static/images/cource10.png" alt="Course Image">
+    <div class="course-info">
+      <h3> Data Science, Machine Learning, Data Analysis, Python & R </h3>
+      <p class="author">  Brando Skyhorse</p>
+      <div class="rating">⭐ 4.7 <span>(120,000)</span></div>
+        <div class="price">
+  <span class="new-price">₹999</span>
+  <span class="old-price">₹1,999</span>
+</div>
+<!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title"
+                   value="Data Science, Machine Learning, Data Analysis, Python & R">
+            <input type="hidden" name="price" value="999">
+            <input type="hidden" name="img" value="static/images/cource10.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+     </div>
+  </div>
+
+     <div class="course-card">
+    <img src="static/images/cource11.png" alt="Course Image">
+    <div class="course-info">
+      <h3> Learn Python, Generative AI, APIs, ChatGPT, Gemini & more</h3>
+      <p class="author"> Ravi Murugesan</p>
+      <div class="rating">⭐ 4.2<span>(120,000)</span></div>
+        <div class="price">
+  <span class="new-price">₹499</span>
+  <span class="old-price">₹2,999</span>
+</div>
+<!-- Add to Cart Form -->
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="title"
+                   value="Learn Python, Generative AI, APIs, ChatGPT, Gemini & More">
+            <input type="hidden" name="price" value="499">
+            <input type="hidden" name="img" value="static/images/cource11.png">
+            <button type="submit" class="cart-btn">Add to Cart</button>
+        </form>
+     </div>
+  </div>
+
+</div>
+    </section>
+
+<script>
+let cart = [];
+
+document.querySelectorAll('.cart-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const card = this.closest('.course-card');
+        const imgSrc = card.querySelector('img').src;
+        const title = card.querySelector('h3').innerText;
+        const price = parseInt(card.querySelector('.new-price').innerText.replace('₹',''));
+
+        const existing = cart.find(item => item.title === title);
+
+        if(existing){
+            existing.qty++;   // increase quantity
+        } else {
+            cart.push({ img: imgSrc, title, price, qty: 1 });
+        }
+
+        renderCart();
+    });
+});
+
+function renderCart(){
+    const cartItemsContainer = document.querySelector('.cart-items');
+    const cartCount = document.querySelector('.cart-count');
+    const cartTotal = document.getElementById('cart-total');
+
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item,index)=>{
+        total += item.price * item.qty;
+
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `
+            <img src="${item.img}">
+            <div class="cart-item-info">
+                <h4>${item.title}</h4>
+                <p>₹${item.price}</p>
+                <div class="qty-box">
+                    <button class="qty-btn minus" data-index="${index}">-</button>
+                    <span>${item.qty}</span>
+                    <button class="qty-btn plus" data-index="${index}">+</button>
+                </div>
+            </div>
+            <button class="remove-btn" data-index="${index}">✕</button>
+        `;
+        cartItemsContainer.appendChild(div);
+    });
+
+    // update summary
+    cartCount.textContent = cart.reduce((t,i)=>t+i.qty,0);
+    cartTotal.textContent = total;
+
+    // add event listeners for qty & remove
+    document.querySelectorAll('.plus').forEach(btn=>{
+        btn.onclick=()=>{ cart[btn.dataset.index].qty++; renderCart(); }
+    });
+
+    document.querySelectorAll('.minus').forEach(btn=>{
+        btn.onclick=()=>{
+            if(cart[btn.dataset.index].qty>1) cart[btn.dataset.index].qty--;
+            else cart.splice(btn.dataset.index,1);
+            renderCart();
+        }
+    });
+
+    document.querySelectorAll('.remove-btn').forEach(btn=>{
+        btn.onclick=()=>{ cart.splice(btn.dataset.index,1); renderCart(); }
+    });
+}
+</script>
+
+
+
+
+<section class="testimonials2">
+    <h2>Testimonials</h2>
+
+    <div class="t-box">
+
+        <div class="t-card">
+            <div class="t-header">
+                <img src="https://i.pravatar.cc/80?img=5" alt="client">
+                <div>
+                    <h3>Priya Singh</h3>
+                    <span>Full Stack Developer</span>
+                </div>
+            </div>
+            <p class="t-msg">"The courses were practical and the mentors were very helpful. Best experience ever!"</p>
+        </div>
+
+        <div class="t-card">
+            <div class="t-header">
+                <img src="https://i.pravatar.cc/80?img=7" alt="client">
+                <div>
+                    <h3>Rohit Mehra</h3>
+                    <span>Python Student</span>
+                </div>
+            </div>
+            <p class="t-msg">"Highly recommended for beginners. I loved the structured learning path."</p>
+        </div>
+
+        <div class="t-card">
+            <div class="t-header">
+                <img src="https://i.pravatar.cc/80?img=10" alt="client">
+                <div>
+                    <h3>Neha Gupta</h3>
+                    <span>UI/UX Student</span>
+                </div>
+            </div>
+            <p class="t-msg">"The projects boosted my portfolio and helped me get internship opportunities."</p>
+        </div>
+
+    </div>
+</section>
+
+
+
+{% endblock %}
+

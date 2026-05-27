@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+ /* ===== Full Page Container ===== */
+.content-area {
+    width: 100%;
+    height: calc(100vh - 120px); /* Adjust if header/footer height changes */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== Login Box ===== */
+.login-container {
+    width: 360px;
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Heading ===== */
+.login-container h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    color: #333;
+    font-weight: 700;
+}
+
+/* ===== Input Fields ===== */
+.login-container input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container input:focus {
+    border-color: #6a11cb;
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+    outline: none;
+}
+
+/* ===== Login Button ===== */
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: #6a11cb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.login-container button:hover {
+    background: #2575fc;
+    transform: translateY(-2px);
+}
+
+/* ===== Paragraph and Link ===== */
+.login-container p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.login-container p a {
+    color: #6a11cb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.login-container p a:hover {
+    color: #2575fc;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 480px) {
+    .login-container {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .login-container h2 {
+        font-size: 22px;
+    }
+}
+
+</style>
+
+<div class="content-area">
+    <div class="login-container">
+
+        <h2>Instructor Login</h2>
+
+        <form method="POST">
+            <input type="email" name="email" placeholder="Enter Email" required>
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <p>
+            Don't have an account?
+            <!-- ✅ CORRECT LINK -->
+            <a href="{{ url_for('instructor_register') }}">Register</a>
+        </p>
+        <p>
+            <a href="{{ url_for('instructor_forgot_password') }}">Forgot Password?</a>
+        </p>
+
+
+
+    </div>
+</div>
+
+{% endblock %}

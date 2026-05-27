@@ -1,0 +1,131 @@
+{% extends 'user/user_base.html' %}
+{% block content %}
+
+<style>
+/* ===============================
+   PAGE BASE
+================================ */
+body{
+    font-family: "Segoe UI", sans-serif;
+    background:#eef2f7;
+    margin:0;
+}
+
+/* ===============================
+   QUIZ CONTAINER
+================================ */
+.quiz-container{
+    max-width:800px;
+    margin:40px auto;
+    background:#ffffff;
+    padding:30px;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+/* ===============================
+   TITLE
+================================ */
+.quiz-container h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:#111827;
+}
+
+/* ===============================
+   QUESTION BOX
+================================ */
+.question-box{
+    margin-bottom:28px;
+}
+
+.question-box p{
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:12px;
+    color:#1f2937;
+}
+
+/* ===============================
+   OPTIONS
+================================ */
+.option{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    margin-bottom:8px;
+    background:#f9fafb;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option:hover{
+    background:#e0f2fe;
+}
+
+.option input{
+    cursor:pointer;
+}
+
+/* ===============================
+   SUBMIT BUTTON
+================================ */
+.submit-btn{
+    display:block;
+    width:100%;
+    margin-top:30px;
+    padding:14px;
+    font-size:16px;
+    font-weight:600;
+    border:none;
+    border-radius:10px;
+    background:#16a34a;
+    color:#ffffff;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.submit-btn:hover{
+    background:#15803d;
+}
+</style>
+
+<div class="quiz-container">
+    <h2>Quiz Assessment</h2>
+
+    <form method="POST">
+        {% for q in questions %}
+            <div class="question-box">
+                <p>{{ loop.index }}. {{ q[2] }}</p>
+
+                <label class="option">
+                    <input type="radio" name="{{ q[0] }}" value="a" required>
+                    {{ q[3] }}
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="{{ q[0] }}" value="b">
+                    {{ q[4] }}
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="{{ q[0] }}" value="c">
+                    {{ q[5] }}
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="{{ q[0] }}" value="d">
+                    {{ q[6] }}
+                </label>
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="submit-btn">
+            Submit Quiz
+        </button>
+    </form>
+</div>
+
+{% endblock %}

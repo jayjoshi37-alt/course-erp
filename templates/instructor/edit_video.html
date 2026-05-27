@@ -1,0 +1,134 @@
+ {% extends 'instructor/instructor_base.html' %}
+{% block content %}
+
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        iframe, video {
+            width: 100%;
+            max-height: 360px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 25px;
+            background: #007bff;
+            color: #fff;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .back {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Edit Course Video</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        <!-- Title -->
+        <label>Video Title</label>
+        <input type="text" name="title" value="{{ video[2] }}" required>
+
+        <!-- Description -->
+        <label>Description</label>
+        <textarea name="description" required>{{ video[3] }}</textarea>
+
+        <!-- YouTube URL -->
+        <label>YouTube Link (optional)</label>
+        <input type="text" name="youtube_url"
+               placeholder="https://www.youtube.com/watch?v=xxxx"
+               value="{{ video[5] }}">
+
+        <p class="note">Leave empty if you want to use MP4 video</p>
+
+        <!-- MP4 Upload -->
+        <label>Replace MP4 Video (optional)</label>
+        <input type="file" name="video_file" accept="video/mp4">
+        <p class="note">Upload only if you want to replace existing MP4</p>
+
+        <!-- Preview Section -->
+        <div class="preview">
+            {% if video[5] %}
+                <h4>Current YouTube Video</h4>
+                <iframe src="{{ video[5] }}" frameborder="0" allowfullscreen></iframe>
+            {% elif video[4] %}
+                <h4>Current Uploaded Video</h4>
+                <video controls>
+                    <source src="{{ url_for('static', filename='uploads/videos/' ~ video[4]) }}" type="video/mp4">
+                </video>
+            {% endif %}
+        </div>
+
+        <button type="submit">Update Video</button>
+    </form>
+
+    <a class="back" href="{{ url_for('upload_video', course_id=video[1]) }}">⬅ Back to Videos</a>
+</div>
+{% endblock %}

@@ -1,0 +1,252 @@
+{% extends 'user/user_base.html' %}
+{% block content %}
+
+<style>
+.payment-wrapper{
+    max-width:520px;
+    margin:60px auto;
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.15);
+    padding:30px;
+}
+
+/* Header */
+.payment-header{
+    text-align:center;
+    margin-bottom:25px;
+}
+.payment-header h2{
+    font-size:26px;
+    margin-bottom:8px;
+}
+.payment-header p{
+    color:#6b7280;
+}
+
+/* Amount box */
+.amount-box{
+    background:#f3f4f6;
+    padding:16px;
+    border-radius:10px;
+    text-align:center;
+    font-size:22px;
+    font-weight:700;
+    color:#6a11cb;
+    margin-bottom:25px;
+}
+
+/* Tabs */
+.payment-methods{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+.method-btn{
+    flex:1;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    background:#f9fafb;
+    font-weight:600;
+    cursor:pointer;
+}
+.method-btn.active{
+    background:#6a11cb;
+    color:#fff;
+    border:none;
+}
+
+/* Sections */
+.pay-section{
+    display:none;
+}
+.pay-section.active{
+    display:block;
+}
+
+/* Card Form */
+.payment-form label{
+    font-size:14px;
+    font-weight:600;
+    color:#374151;
+    display:block;
+    margin-bottom:6px;
+}
+.payment-form input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:8px;
+    border:1px solid #d1d5db;
+    margin-bottom:18px;
+    font-size:15px;
+}
+.payment-form input:focus{
+    outline:none;
+    border-color:#6a11cb;
+}
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+.pay-btn{
+    width:100%;
+    padding:14px;
+    font-size:18px;
+    font-weight:600;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#16a34a,#22c55e);
+    color:#fff;
+    cursor:pointer;
+    transition:.3s;
+}
+.pay-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 18px rgba(0,0,0,.2);
+}
+
+/* Dummy note */
+.note{
+    text-align:center;
+    font-size:13px;
+    color:#9ca3af;
+    margin-top:15px;
+}
+
+/* UPI QR */
+.upi-box{
+    text-align:center;
+}
+.upi-qr{
+    width:200px;
+    margin:20px auto;
+}
+.upi-text{
+    color:#6b7280;
+    margin-bottom:15px;
+}
+
+/* Bank */
+.bank-select{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+</style>
+
+<div class="payment-wrapper">
+
+    <div class="payment-header">
+        <h2>Secure Payment</h2>
+        <p>{{ course[1] }}</p>
+    </div>
+
+    <div class="amount-box">
+        ₹ {{ course[2] }}
+    </div>
+
+    <!-- Payment Tabs -->
+    <div class="payment-methods">
+        <button type="button" class="method-btn active" onclick="showMethod('card')">💳 Card</button>
+        <button type="button" class="method-btn" onclick="showMethod('upi')">📱 UPI</button>
+        <button type="button" class="method-btn" onclick="showMethod('netbanking')">🏦 Net Banking</button>
+    </div>
+
+    <!-- Card Section -->
+    <form method="post" class="payment-form pay-section active" id="card">
+        <label>Card Number</label>
+        <input type="text" placeholder="1234 5678 9012 3456" required>
+
+        <div class="form-row">
+            <div>
+                <label>Expiry</label>
+                <input type="text" placeholder="MM / YY" required>
+            </div>
+            <div>
+                <label>CVV</label>
+                <input type="password" placeholder="***" required>
+            </div>
+        </div>
+
+        <label>Card Holder Name</label>
+        <input type="text" placeholder="John Doe" required>
+
+        <button type="submit" class="pay-btn">
+            Submit
+        </button>
+    </form>
+
+    <!-- UPI Section -->
+<div class="pay-section" id="upi">
+    <div class="upi-box">
+        <h3>Scan & Pay using UPI</h3>
+        <img src="{{ url_for('static', filename='images/scanner.png') }}"
+             alt="UPI QR" class="upi-qr" id="upiQr">
+        <p class="upi-text" id="upiText">Scan with Google Pay / PhonePe / Paytm</p>
+        <button type="button" class="pay-btn" id="upiScanBtn">
+            I have scanned
+        </button>
+    </div>
+</div>
+
+<script>
+    const upiScanBtn = document.getElementById('upiScanBtn');
+    const upiQr = document.getElementById('upiQr');
+    const upiText = document.getElementById('upiText');
+
+    upiScanBtn.addEventListener('click', () => {
+        // Simulate processing payment
+        upiQr.style.display = 'none';
+        upiText.textContent = 'Processing payment...';
+        upiScanBtn.style.display = 'none';
+
+        setTimeout(() => {
+            upiText.textContent = '✅ Payment Successful!';
+
+            // Automatically submit the form after success
+            fetch("", {method: "POST"})
+                .then(() => {
+                    window.location.href = "{{ url_for('course_videos', course_id=course[0]) }}";
+                });
+        }, 2000); // 2 second fake processing
+    });
+</script>
+
+    <!-- Net Banking Section -->
+    <form method="post" class="pay-section" id="netbanking">
+        <label>Select Bank</label>
+        <select class="bank-select" required>
+            <option value="">--Select Bank--</option>
+            <option>SBI</option>
+            <option>HDFC</option>
+            <option>ICICI</option>
+            <option>Axis Bank</option>
+        </select>
+        <button type="submit" class="pay-btn">
+            Pay ₹ {{ course[2] }}
+        </button>
+    </form>
+
+    <p class="note">
+        🔒 Dummy payment only. No real money deducted.
+    </p>
+
+</div>
+
+<script>
+function showMethod(method){
+    document.querySelectorAll('.pay-section').forEach(div=>{
+        div.classList.remove('active');
+    });
+    document.querySelectorAll('.method-btn').forEach(btn=>{
+        btn.classList.remove('active');
+    });
+    document.getElementById(method).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+{% endblock %}

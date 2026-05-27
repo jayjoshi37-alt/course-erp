@@ -1,0 +1,161 @@
+ {% extends 'user/user_base.html' %}
+{% block content %}
+
+<style>
+/* ===============================
+   PAGE TITLE
+================================ */
+.page-title {
+    font-size: 26px;
+    margin-bottom: 22px;
+    color: #111827;
+    font-weight: 600;
+}
+
+/* ===============================
+   CERTIFICATE TABLE
+================================ */
+.certificate-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+}
+
+/* Table hover effect */
+.certificate-table tbody tr:hover {
+    background-color: #f9fafb;
+    transform: scale(1.01);
+}
+
+/* Header */
+.certificate-table thead {
+    background: linear-gradient(90deg, #7c3aed, #9333ea);
+}
+
+.certificate-table th {
+    padding: 14px 16px;
+    text-align: left;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* Body */
+.certificate-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* ===============================
+   CERTIFICATE BADGES
+================================ */
+.cert-no {
+    background: #ede9fe;
+    color: #5b21b6;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+    cursor: default;
+}
+
+.cert-badge {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.issue-date {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+/* ===============================
+   DOWNLOAD BUTTON
+================================ */
+.download-btn{
+    background:#7c3aed;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+    transition:0.3s;
+}
+.download-btn:hover{
+    background:#5b21b6;
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+.no-certificates {
+    background: #f3f4f6;
+    padding: 32px;
+    border-radius: 12px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+    .certificate-table th,
+    .certificate-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .page-title {
+        font-size: 22px;
+    }
+}
+</style>
+
+<h2 class="page-title">🎓 My Certificates</h2>
+
+{% if certificates %}
+<table class="certificate-table">
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>Certificate No</th>
+            <th>Issued Date</th>
+            <th>Status</th>
+            <th>Download</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for c in certificates %}
+        <tr>
+            <td>{{ c[0] }}</td>
+            <td><span class="cert-no" title="Certificate No: {{ c[1] }}">{{ c[1] }}</span></td>
+            <td><span class="issue-date">{{ c[2] }}</span></td>
+            <td><span class="cert-badge">✅ Completed</span></td>
+            <td>
+                <a href="{{ url_for('download_certificate', certificate_no=c[1]) }}" class="download-btn" target="_blank"> ⬇ Download </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="no-certificates">
+    🎓 You have not earned any certificates yet.
+</div>
+{% endif %}
+
+{% endblock %}

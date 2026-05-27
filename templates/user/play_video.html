@@ -1,0 +1,52 @@
+ {% extends 'user/user_base.html' %}
+{% block content %}
+
+<style>
+.video-box{
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+}
+.complete-btn{
+    margin-top:20px;
+    padding:12px 20px;
+    background:#16a34a;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+}
+.complete-btn:hover{
+    background:#15803d;
+}
+</style>
+
+<div class="video-box">
+    <h2>{{ video[1] }}</h2>
+    <p>{{ video[2] }}</p>
+
+    {% if video[3] %}
+        <!-- MP4 VIDEO -->
+        <video width="100%" controls>
+            <source src="{{ url_for('static', filename='uploads/videos/' + video[3]) }}" type="video/mp4">
+        </video>
+    {% else %}
+        <!-- YOUTUBE VIDEO -->
+        <iframe width="100%" height="400"
+            src="{{ video[4] }}"
+            allowfullscreen>
+        </iframe>
+    {% endif %}
+
+    <!-- ✅ NO JS – FORM SUBMIT -->
+    <form method="POST">
+        <button type="submit" class="complete-btn">
+            ✅ Mark Video as Completed
+        </button>
+    </form>
+</div>
+
+{% endblock %}

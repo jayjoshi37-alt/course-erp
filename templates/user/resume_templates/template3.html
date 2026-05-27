@@ -1,0 +1,235 @@
+ {% extends 'user/user_base.html' %}
+{% block content %}
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+    background: #f4f6f8;
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.resume {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: #fff;
+    display: flex;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 8px;
+}
+
+/* LEFT COLUMN */
+.left {
+    width: 32%;
+    background: #e6e0dc;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 4px solid #fff;
+}
+.photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+.section h2,
+.section h3 {
+    font-size: 16px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.left p,
+.left li {
+    font-size: 14px;
+    color: #333;
+    margin: 5px 0;
+}
+
+.left ul {
+    padding-left: 18px;
+}
+
+/* RIGHT COLUMN */
+.right {
+    width: 68%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background: #1e1917;
+    color: #fff;
+    padding: 35px;
+}
+.header h1 {
+    margin: 0;
+    font-size: 36px;
+    letter-spacing: 2px;
+}
+.header h4 {
+    margin-top: 8px;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.content {
+    padding: 30px 35px;
+    flex: 1;
+}
+
+.content h2,
+.content h3 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.content p,
+.content li {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.content ul {
+    padding-left: 20px;
+}
+
+/* EDUCATION LIST */
+.edu-list li {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+</style>
+
+<div class="resume">
+
+    <!-- LEFT COLUMN -->
+    <div class="left">
+
+        <div class="photo">
+            {% if resume[4] %}
+            <img src="{{ url_for('static', filename='uploads/' ~ resume[4]) }}">
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <p><i class="fa fa-phone"></i> {{ resume[1] }}</p>
+            <p><i class="fa fa-envelope"></i> {{ resume[2] }}</p>
+            <p><i class="fa fa-location-dot"></i> {{ resume[3] }}</p>
+            {% if resume[13] %}
+            <p><i class="fa-brands fa-linkedin"></i> {{ resume[14] }}</p>
+            {% endif %}
+            {% if resume[14] %}
+            <p><i class="fa-brands fa-github"></i> {{ resume[15] }}</p>
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <h2>Education</h2>
+            <ul class="edu-list">
+                {% if resume[9] %}
+                <li><strong>Post Graduation:</strong> {{ resume[9] }}</li>
+                {% endif %}
+                {% if resume[8] %}
+                <li><strong>Degree:</strong> {{ resume[8] }}</li>
+                {% endif %}
+                {% if resume[7] %}
+                <li><strong>12th:</strong> {{ resume[7] }}</li>
+                {% endif %}
+                {% if resume[6] %}
+                <li><strong>10th:</strong> {{ resume[6] }}</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Skills</h3>
+            <ul>
+                {% for skill in resume[11].split(',') %}
+                <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if resume[5] %}
+        <div class="section">
+            <h3>Certificates</h3>
+            <ul>
+                {% for c in resume[5].split(',') %}
+                <li>{{ c }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right">
+
+        <div class="header">
+            <h1>{{ resume[0] }}</h1>
+            <h4>Professional Resume</h4>
+        </div>
+
+        <div class="content">
+
+            <h3>About Me</h3>
+            <p>{{ resume[10] }}</p>
+
+            &nbsp;
+
+            {% if resume[12] %}
+            <div class="section">
+                <h3>Projects</h3>
+                <ul>
+                    {% for project in resume[12].split(',') %}
+                    {% set parts = project.split(' - ') %}
+                    <li><strong>{{ parts[0] }}:</strong> {{ parts[1] if parts|length > 1 else '' }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if resume[13] %}
+            <div class="section">
+                <h3>Experience</h3>
+                <ul>
+                    {% for exp in resume[13].split(',') %}
+                    {% set parts = exp.split(' - ') %}
+                    <li><strong>{{ parts[0] }}:</strong> {{ parts[1] if parts|length > 1 else '' }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+

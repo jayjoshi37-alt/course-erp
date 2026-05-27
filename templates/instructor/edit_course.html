@@ -1,0 +1,134 @@
+ {% extends 'instructor/instructor_base.html' %}
+{% block content %}
+
+<style>
+.edit-course-wrapper {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.edit-course-wrapper h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.form-group textarea {
+    resize: none;
+    height: 120px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #6a11cb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(106,17,203,0.15);
+}
+
+.update-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.current-image {
+    margin-bottom: 15px;
+}
+
+.error-msg {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+</style>
+
+<div class="edit-course-wrapper">
+    <h2>Edit Course</h2>
+
+    <form id="editCourseForm" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Course Title</label>
+            <input type="text" id="title" name="title" value="{{ course[1] }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required>{{ course[2] }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price (₹)</label>
+            <input type="number" id="price" name="price" value="{{ course[3] }}" required>
+        </div>
+
+        {% if course[4] %}
+        <div class="form-group current-image">
+            <label>Current Image</label><br>
+            <img src="{{ url_for('static', filename='uploads/' + course[4]) }}" width="150" style="border-radius:8px;">
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="image">Change Course Image</label>
+            <input type="file" id="image" name="image" accept=".png,.jpg,.jpeg,.gif">
+            <div class="error-msg" id="imageError"></div>
+        </div>
+
+        <button type="submit" class="update-btn">Update Course</button>
+    </form>
+</div>
+
+<script>
+document.getElementById('editCourseForm').addEventListener('submit', function(e) {
+    const fileInput = document.getElementById('image');
+    const errorDiv = document.getElementById('imageError');
+    errorDiv.textContent = ''; // Reset error
+
+    if(fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+        const maxSize = 2 * 1024 * 1024; // 2MB
+
+        if(!allowedTypes.includes(file.type)) {
+            errorDiv.textContent = 'Invalid file type! Only PNG, JPG, JPEG, GIF allowed.';
+            e.preventDefault();
+        } else if(file.size > maxSize) {
+            errorDiv.textContent = 'File is too large! Max size is 2MB.';
+            e.preventDefault();
+        }
+    }
+});
+</script>
+
+{% endblock %}

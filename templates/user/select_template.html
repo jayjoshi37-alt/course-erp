@@ -1,0 +1,44 @@
+{% extends 'user/user_base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="page-title">Select Resume Template</h2>
+
+    <form method="POST">
+        <div class="template-grid">
+            <!-- Template 1 -->
+            <div class="template-card">
+                <img src="{{ url_for('static', filename='templates/template1.png') }}" alt="Template 1">
+                <button type="submit" name="template_id" value="1" class="select-btn">Select</button>
+            </div>
+
+            <!-- Template 2 -->
+            <div class="template-card">
+                <img src="{{ url_for('static', filename='templates/template2.png') }}" alt="Template 2">
+                <button type="submit" name="template_id" value="2" class="select-btn">Select</button>
+            </div>
+
+            <!-- Template 3 -->
+            <div class="template-card">
+                <img src="{{ url_for('static', filename='templates/template3.png') }}" alt="Template 3">
+                <button type="submit" name="template_id" value="3" class="select-btn">Select</button>
+            </div>
+
+            <!-- Template 4 -->
+            <div class="template-card">
+                <img src="{{ url_for('static', filename='templates/template4.png') }}" alt="Template 4">
+                <button type="submit" name="template_id" value="4" class="select-btn">Select</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+.container { max-width: 900px; margin: auto; padding: 30px; text-align: center; }
+.template-grid { display: flex; justify-content: space-between; gap: 20px; }
+.template-card { border: 1px solid #ccc; padding: 10px; border-radius: 8px; width: 30%; }
+.template-card img { width: 100%; height: auto; border-radius: 5px; }
+.select-btn { margin-top: 10px; padding: 8px 12px; background-color: #4f46e5; color: white; border: none; border-radius: 5px; cursor: pointer; }
+.select-btn:hover { background-color: #4338ca; }
+</style>
+{% endblock %}

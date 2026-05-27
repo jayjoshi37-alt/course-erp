@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block content %}
+ &nbsp;
+
+<h2 style="text-align:center">Checkout</h2>
+<style>
+  <style>
+/* ===== Checkout Page Container ===== */
+.checkout-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+/* ===== Individual Cart Item Card ===== */
+.checkout-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+}
+
+/* Item Image */
+.checkout-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Item Title */
+.checkout-card h3 {
+    flex: 1;
+    font-size: 1.1em;
+    margin: 0;
+}
+
+/* Item Price */
+.checkout-card p {
+    font-weight: bold;
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+/* Quantity Selector */
+.qty {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.qty a {
+    padding: 5px 12px;
+    background: #eee;
+    margin: 0 5px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.qty a:hover {
+    background: #ddd;
+}
+
+/* Delete Button */
+.delete {
+    color: #ff4d4f;
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.delete:hover {
+    color: #d9363e;
+}
+
+/* Buy Now Button */
+.buy {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.buy:hover {
+    background-color: #218838;
+}
+
+/* Total Section */
+.total {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Empty Cart Message */
+p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .checkout-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .checkout-card img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .qty {
+        margin-top: 10px;
+    }
+
+    .buy {
+        margin-top: 10px;
+    }
+}
+</style>
+</style>
+{% if cart %}
+  {% for item in cart %}
+    <div class="checkout-card">
+      <img src="{{ item.img }}">
+      <h3>{{ item.title }}</h3>
+      <p>₹{{ item.price }}</p>
+
+      <div class="qty">
+        <a href="{{ url_for('update_qty', index=loop.index0, action='minus') }}">-</a>
+        {{ item.qty }}
+        <a href="{{ url_for('update_qty', index=loop.index0, action='plus') }}">+</a>
+      </div>
+
+      <a class="delete" href="{{ url_for('remove', index=loop.index0) }}">Delete</a>
+     <button class="buy">Buy Now</button>
+
+
+     </div>
+  {% endfor %}
+
+  <div class="total" style="text-align:right; margin:20px; font-weight:bold;">
+    Total: ₹{{ total }}
+  </div>
+
+{% else %}
+  <p style="text-align:center">Your cart is empty</p>
+{% endif %}
+
+{% endblock %}

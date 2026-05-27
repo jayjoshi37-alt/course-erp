@@ -1,0 +1,88 @@
+ {% extends 'admin/admin_base.html' %}
+
+{% block content %}
+<style>
+/* Main content */
+.page-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.dashboard-title {
+    margin-bottom: 25px;
+}
+
+/* Dashboard Cards */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.dashboard-card i {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.dashboard-card h3 {
+    font-size: 28px;
+    margin: 5px 0;
+}
+
+.dashboard-card p {
+    color: #666;
+}
+
+/* Card Colors */
+.users i { color: #2575fc; }
+.courses i { color: #6a11cb; }
+.instructors i { color: #ff9800; }
+.revenue i { color: #4caf50; }
+
+
+</style>
+<!-- Main Content -->
+    <main class="page-content">
+
+        <h1 class="dashboard-title">Welcome, {{ session.admin }}</h1>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card users">
+                <i class="fa-solid fa-users"></i>
+                <h3>{{ total_users }}</h3>
+                <p>Total Users</p>
+            </div>
+
+            <div class="dashboard-card courses">
+                <i class="fa-solid fa-book-open"></i>
+                <h3>{{ total_courses }}</h3>
+                <p>Total Courses</p>
+            </div>
+
+            <div class="dashboard-card instructors">
+                <i class="fa-solid fa-user-graduate"></i>
+                <h3>{{ total_instructor }}</h3>
+                <p>Instructors</p>
+            </div>
+
+            <div class="dashboard-card revenue">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+                <h3>{{ total_revenue }}</h3>
+                <p>Revenue</p>
+            </div>
+
+        </div>
+
+    </main>
+
+{% endblock %}

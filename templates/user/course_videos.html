@@ -1,0 +1,253 @@
+ {% extends 'user/user_base.html' %}
+{% block content %}
+
+<style>
+/* ===============================
+   PAGE TITLE
+================================ */
+.course-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: #111827;
+}
+
+/* ===============================
+   COURSE PROGRESS
+================================ */
+.course-progress-wrapper {
+    background: #ffffff;
+    padding: 18px 22px;
+    border-radius: 14px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+}
+
+.course-progress-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 10px;
+}
+
+.progress {
+    height: 22px;
+    border-radius: 30px;
+    background-color: #e5e7eb;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    font-weight: 600;
+    font-size: 13px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 22px;
+    transition: width 0.6s ease;
+}
+
+/* ===============================
+   VIDEO CARD
+================================ */
+.video-card {
+    background: #ffffff;
+    padding: 20px 22px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+    transition: all 0.25s ease;
+    border-left: 6px solid #e5e7eb;
+}
+
+.video-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+.video-card.completed {
+    border-left-color: #22c55e;
+}
+
+.video-card.pending {
+    border-left-color: #f59e0b;
+}
+
+/* ===============================
+   VIDEO TITLE & DESCRIPTION
+================================ */
+.video-card h4 {
+    font-size: 18px;
+    color: #111827;
+    margin-bottom: 6px;
+}
+
+.video-card p {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 12px;
+}
+
+/* ===============================
+   STATUS BADGE
+================================ */
+.status-badge {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+
+.status-completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* ===============================
+   PLAY BUTTON
+================================ */
+.play-btn {
+    margin-top: 14px;
+    padding: 10px 18px;
+    background: linear-gradient(90deg, #7c3aed, #9333ea);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.play-btn:hover {
+    opacity: 0.9;
+}
+
+/* ===============================
+   QUIZ SECTION
+================================ */
+.quiz-card {
+    text-align: center;
+    padding: 30px;
+}
+
+.quiz-card h3 {
+    font-size: 20px;
+    color: #065f46;
+    margin-bottom: 8px;
+}
+
+.quiz-card p {
+    font-size: 14px;
+    color: #374151;
+    margin-bottom: 15px;
+}
+
+.quiz-btn {
+    padding: 12px 26px;
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+    .video-card {
+        padding: 16px;
+    }
+    .video-card h4 {
+        font-size: 16px;
+    }
+    .course-title {
+        font-size: 22px;
+    }
+}
+/* ===============================
+   QUIZ SECTION
+================================ */
+.quiz-card {
+    background: #ecfdf5;
+    border: 2px dashed #22c55e;
+    border-radius: 14px;
+    padding: 30px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.quiz-btn {
+    padding: 12px 28px;
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+</style>
+
+<!-- ================= PAGE TITLE ================= -->
+<h2 class="course-title">📚 Course Videos</h2>
+
+<!-- ================= COURSE PROGRESS ================= -->
+<div class="course-progress-wrapper">
+    <div class="course-progress-title">
+        Course Progress: {{ progress }}%
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" style="width: {{ progress }}%;">
+            {{ progress }}%
+        </div>
+    </div>
+</div>
+
+<!-- ================= VIDEO LIST ================= -->
+{% for v in videos %}
+<div class="video-card {% if v[4] == 'Completed' %}completed{% else %}pending{% endif %}">
+
+    <h4>{{ v[1] }}. {{ v[2] }}</h4>
+    <p>{{ v[3] }}</p>
+
+    {% if v[4] == 'Completed' %}
+        <span class="status-badge status-completed">✅ Completed</span>
+    {% else %}
+        <span class="status-badge status-pending">⏳ Pending</span>
+    {% endif %}
+
+
+
+
+    <br>
+
+    <a href="{{ url_for('play_video', video_id=v[0]) }}">
+        <button class="play-btn">▶ Play Video</button>
+    </a>
+</div>
+{% endfor %}
+
+ <!-- QUIZ SECTION (ONLY ONCE) -->
+{% if progress == 100 %}
+<div class="quiz-card">
+    <h3>🎓 Final Course Quiz</h3>
+    <p>You have completed all videos. Take the final quiz to get your certificate.</p>
+
+    <a href="{{ url_for('attempt_quiz', course_id=course_id) }}">
+        <button class="quiz-btn">🧠 Take Final Quiz</button>
+    </a>
+</div>
+{% endif %}
+
+
+
+{% endblock %}

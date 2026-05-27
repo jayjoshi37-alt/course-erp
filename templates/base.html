@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Institute ERP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+
+<header class="colorful-header">
+    <!-- Left side: Logo -->
+    <div class="header-left">
+        <div class="logo">Institute ERP</div>
+    </div>
+
+<nav class="menu">
+
+    <input type="checkbox" id="toggle-mega" hidden>
+
+    <label for="toggle-mega" class="explore-btn">
+        <i class="fa-solid fa-layer-group"></i> Explore
+        <i class="fa-solid fa-chevron-down"></i>
+    </label>
+
+    <div class="mega-menu">
+
+        <!-- 1. Programming -->
+        <div class="mega-column">
+            <h4><i class="fa-solid fa-code"></i> Programming</h4>
+            <a href="#"><i class="fa-brands fa-python"></i> Python</a>
+            <a href="#"><i class="fa-brands fa-java"></i> Java</a>
+            <a href="#"><i class="fa-solid fa-scroll"></i> C/C++</a>
+            <a href="#"><i class="fa-brands fa-js"></i> JavaScript</a>
+            <a href="#"><i class="fa-brands fa-golang"></i> GoLang</a>
+            <a href="#"><i class="fa-brands fa-rust"></i> Rust</a>
+        </div>
+
+        <!-- 2. Web Development -->
+        <div class="mega-column">
+            <h4><i class="fa-solid fa-globe"></i> Web Development</h4>
+            <a href="#"><i class="fa-brands fa-html5"></i> HTML</a>
+            <a href="#"><i class="fa-brands fa-css3"></i> CSS</a>
+            <a href="#"><i class="fa-brands fa-node"></i> Node.js</a>
+            <a href="#"><i class="fa-brands fa-react"></i> React</a>
+            <a href="#"><i class="fa-brands fa-vuejs"></i> Vue.js</a>
+            <a href="#"><i class="fa-brands fa-angular"></i> Angular</a>
+            <a href="#"><i class="fa-brands fa-php"></i> PHP</a>
+        </div>
+
+        <!-- 3. Databases -->
+        <div class="mega-column">
+            <h4><i class="fa-solid fa-database"></i> Databases</h4>
+            <a href="#"><i class="fa-solid fa-database"></i> MySQL</a>
+            <a href="#"><i class="fa-solid fa-server"></i> MongoDB</a>
+            <a href="#"><i class="fa-solid fa-cloud"></i> Firebase</a>
+            <a href="#"><i class="fa-solid fa-table"></i> PostgreSQL</a>
+            <a href="#"><i class="fa-solid fa-database"></i> SQLite</a>
+            <a href="#"><i class="fa-solid fa-chart-simple"></i> Snowflake</a>
+        </div>
+
+        <!-- 4. Data Science -->
+        <div class="mega-column">
+            <h4><i class="fa-solid fa-brain"></i> Data Science</h4>
+            <a href="#"><i class="fa-solid fa-robot"></i> AI & ML</a>
+            <a href="#"><i class="fa-solid fa-network-wired"></i> Deep Learning</a>
+            <a href="#"><i class="fa-solid fa-chart-line"></i> Data Analytics</a>
+            <a href="#"><i class="fa-solid fa-code-branch"></i> NLP</a>
+            <a href="#"><i class="fa-solid fa-dna"></i> Neural Networks</a>
+        </div>
+
+        <!-- 5. Software Tools -->
+        <div class="mega-column">
+            <h4><i class="fa-solid fa-laptop-code"></i> Software Tools</h4>
+            <a href="#"><i class="fa-brands fa-git-alt"></i> Git & GitHub</a>
+            <a href="#"><i class="fa-solid fa-code-branch"></i> DevOps</a>
+            <a href="#"><i class="fa-solid fa-bug"></i> Testing</a>
+            <a href="#"><i class="fa-solid fa-shield-halved"></i> Cyber Security</a>
+            <a href="#"><i class="fa-solid fa-terminal"></i> Linux</a>
+        </div>
+
+        <!-- 6. Cloud & DevOps -->
+        <div class="mega-column">
+            <h4><i class="fa-solid fa-cloud"></i> Cloud & DevOps</h4>
+            <a href="#"><i class="fa-brands fa-aws"></i> AWS</a>
+            <a href="#"><i class="fa-brands fa-microsoft"></i> Azure</a>
+            <a href="#"><i class="fa-brands fa-google"></i> GCP</a>
+            <a href="#"><i class="fa-solid fa-gear"></i> Docker</a>
+            <a href="#"><i class="fa-solid fa-cubes"></i> Kubernetes</a>
+        </div>
+
+    </div>
+</nav>
+
+    <!-- Right side: Search bar, navigation links, cart, login/logout -->
+    <div class="header-right">
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search courses">
+            <button>
+                <img src="{{ url_for('static', filename='images/search.png') }}" alt="Search">
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('pricing') }}">Plans & Pricing</a>
+            <a href="{{ url_for('instructor') }}">Instructor</a>
+               <a href="/contact">Contact</a>
+        </nav>
+
+        <a href="{{ url_for('checkout') }}" class="cart-icon">
+    <img src="static/images/cart.png">
+    <span class="cart-count">{{ session.get('cart', [])|length }}</span>
+</a>
+
+
+    </div>
+
+        <div class="login-dropdown">
+    <input type="checkbox" id="login-toggle" hidden>
+    <label for="login-toggle" class="dropbtn">Login <i class="fa fa-caret-down"></i></label>
+
+    <div class="dropdown-content">
+        <a href="{{ url_for('admin_login') }}">Admin Login</a>
+        <a href="{{ url_for('login') }}">User Login</a>
+        <a href="{{ url_for('instructor_login') }}">Instructor Login</a>
+    </div>
+</div>
+
+</header>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <div class="flash {{ category }}">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+<style>
+    .flash{
+  padding:12px;
+  margin:10px auto;
+  width:90%;
+  border-radius:6px;
+  text-align:center;
+}
+.flash.success{
+  background:#d4edda;
+  color:#155724;
+}
+
+</style>
+{% block content %}{% endblock %}
+
+<footer class="footer">
+    <div class="footer-content">
+
+        <!-- 1. About / Contact Info -->
+        <div class="footer-left">
+            <h3>Institute ERP</h3>
+            <p>Email: <a href="mailto:info@instituteerp.com">info@instituteerp.com</a></p>
+            <p>Mobile: <a href="tel:+919876543210">+91 98765 43210</a></p>
+
+              <!-- Social Media Icons at bottom left -->
+    <div class="footer-social-bottom">
+        <a href="#" title="Facebook"><img src="{{ url_for('static', filename='images/facebook.png') }}"></a>
+        <a href="#" title="Instagram"><img src="{{ url_for('static', filename='images/instagram.png') }}"></a>
+        <a href="#" title="LinkedIn"><img src="{{ url_for('static', filename='images/linkedin.png') }}"></a>
+        <a href="#" title="Twitter"><img src="{{ url_for('static', filename='images/twitter.png') }}"></a>
+    </div>
+
+        </div>
+
+        <!-- 2. Quick Links -->
+        <div class="footer-middle">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="{{ url_for('instructor') }}">Instructor Dashboard</a></li>
+                <li><a href="{{ url_for('pricing') }}">Plans & Pricing</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="{{ url_for('checkout') }}">Cart</a></li>
+                <li><a href="{{ url_for('admin_login') }}">Admin Login</a></li>
+                <li><a href="{{ url_for('login') }}">User Login</a></li>
+                <li><a href="{{ url_for('instructor_login') }}">Instructor Login</a></li>
+            </ul>
+        </div>
+
+        <!-- 3. Popular Courses / Categories -->
+        <div class="footer-courses">
+            <h3>Courses</h3>
+            <ul>
+                <li><a href="#">Python</a></li>
+                <li><a href="#">Java</a></li>
+                <li><a href="#">HTML & CSS</a></li>
+                <li><a href="#">JavaScript</a></li>
+                <li><a href="#">AI & ML</a></li>
+                <li><a href="#">Cloud & DevOps</a></li>
+            </ul>
+        </div>
+
+        <!-- 4. Contact Form -->
+        <div class="footer-right">
+            <h3>Contact Us</h3>
+            <form action="/send_message" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+
+    </div>
+
+    <p class="footer-bottom">© 2025 Institute ERP | All Rights Reserved</p>
+</footer>
+
+
+</body>
+</html>

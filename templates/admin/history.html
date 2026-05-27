@@ -1,0 +1,73 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+<style>
+
+    .history-container{
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+.history-container h2{
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.history-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.history-table th{
+    background:#5f4dee;
+    color:#fff;
+    padding:12px;
+    text-align:left;
+}
+
+.history-table td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+}
+
+.history-table tr:hover{
+    background:#f4f4ff;
+}
+
+.no-data{
+    text-align:center;
+    color:#999;
+}
+
+</style>
+<div class="history-container">
+    <h2>Registered Users</h2>
+
+    <table class="history-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td>{{ u[0] }}</td>
+                <td>{{ u[1] }}</td>
+                <td>{{ u[2] }}</td>
+                <td>{{ u[3] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="no-data">No users found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

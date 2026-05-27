@@ -1,0 +1,159 @@
+ {% extends 'instructor/instructor_base.html' %}
+{% block content %}
+
+<style>
+/* Page container */
+.edit-quiz-page{
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.edit-quiz-header{
+    margin-bottom: 30px;
+}
+.edit-quiz-header h3{
+    font-size: 26px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Card */
+.quiz-card{
+    background:#ffffff;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 14px 32px rgba(0,0,0,0.08);
+}
+
+/* Form fields */
+.form-group{
+    margin-bottom: 18px;
+}
+.form-group label{
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+    display: block;
+}
+.form-control,
+.form-select{
+    width:100%;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid #d1d5db;
+    font-size:14px;
+}
+.form-control:focus,
+.form-select:focus{
+    outline:none;
+    border-color:#6366f1;
+    box-shadow:0 0 0 2px rgba(99,102,241,.2);
+}
+
+/* Question box */
+.question-box{
+    background:#f9fafb;
+    padding:22px;
+    border-radius:14px;
+    margin-bottom:22px;
+    border:1px solid #e5e7eb;
+}
+.question-box input{
+    margin-bottom:8px;
+}
+
+/* Divider */
+.section-divider{
+    margin:30px 0;
+    border:none;
+    border-top:1px dashed #d1d5db;
+}
+
+/* Submit button */
+.update-btn{
+    background: linear-gradient(90deg,#2563eb,#1e40af);
+    color:#fff;
+    padding:12px 26px;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+.update-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 18px rgba(0,0,0,.18);
+}
+</style>
+
+<div class="edit-quiz-page">
+
+    <div class="edit-quiz-header">
+        <h3>Edit Quiz</h3>
+    </div>
+
+    <div class="quiz-card">
+        <form method="POST">
+
+            <div class="form-group">
+                <label>Quiz Title</label>
+                <input type="text" name="title"
+                       class="form-control"
+                       value="{{ quiz[0] }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Pass Percentage</label>
+                <input type="number" name="pass_percentage"
+                       class="form-control"
+                       value="{{ quiz[1] }}" required>
+            </div>
+
+            <hr class="section-divider">
+
+            {% for q in questions %}
+            <div class="question-box">
+                <input type="text" name="question[]"
+                       class="form-control"
+                       value="{{ q[2] }}"
+                       placeholder="Question"
+                       required>
+
+                <input type="text" name="a[]" class="form-control"
+                       placeholder="Option A"
+                       value="{{ q[3] }}">
+
+                <input type="text" name="b[]" class="form-control"
+                       placeholder="Option B"
+                       value="{{ q[4] }}">
+
+                <input type="text" name="c[]" class="form-control"
+                       placeholder="Option C"
+                       value="{{ q[5] }}">
+
+                <input type="text" name="d[]" class="form-control"
+                       placeholder="Option D"
+                       value="{{ q[6] }}">
+
+                <select name="correct[]" class="form-select">
+                    <option value="a" {% if q[7]=='a' %}selected{% endif %}>Correct: A</option>
+                    <option value="b" {% if q[7]=='b' %}selected{% endif %}>Correct: B</option>
+                    <option value="c" {% if q[7]=='c' %}selected{% endif %}>Correct: C</option>
+                    <option value="d" {% if q[7]=='d' %}selected{% endif %}>Correct: D</option>
+                </select>
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="update-btn">
+                Update Quiz
+            </button>
+
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,189 @@
+ {% extends 'user/user_base.html' %}
+{% block content %}
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* BASE */
+body{
+    background:#f5f6f7;
+    font-family:"Calibri","Segoe UI",Arial,sans-serif;
+    margin:0;
+    font-size:16px;
+}
+
+.page{
+    max-width:900px;
+    background:#ffffff;
+    margin:30px auto;
+    padding:45px 55px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:2px solid #c7e8d7;
+    padding-bottom:18px;
+    margin-bottom:28px;
+}
+
+.header h1{
+    margin:0;
+    font-size:36px;
+    font-weight:700;
+    color:#1f2933;
+}
+
+.contact{
+    text-align:right;
+    font-size:15px;
+    line-height:1.9;
+    color:#374151;
+}
+
+.contact i{
+    color:#0f766e;
+    margin-right:8px;
+}
+
+/* SECTION */
+.section{
+    margin-bottom:28px;
+}
+
+.section-title{
+    background:#dff3ea;
+    color:#0f766e;
+    font-weight:700;
+    padding:8px 12px;
+    font-size:18px;
+    margin-bottom:14px;
+}
+
+/* TEXT */
+.text{
+    font-size:16px;
+    line-height:1.75;
+    color:#374151;
+}
+
+/* LISTS */
+ul{
+    padding-left:22px;
+    font-size:16px;
+    line-height:1.75;
+    color:#374151;
+}
+
+ul li{
+    margin-bottom:10px;
+}
+
+/* SKILLS */
+.skills-list li{
+    list-style-type:square;
+    font-size:16px;
+}
+</style>
+
+<div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>{{ resume[0] }}</h1>
+
+        <div class="contact">
+            <div><i class="fa-solid fa-phone"></i>{{ resume[1] }}</div>
+            <div><i class="fa-solid fa-envelope"></i>{{ resume[2] }}</div>
+            <div><i class="fa-solid fa-location-dot"></i>{{ resume[3] }}</div>
+
+            {% if resume[13] %}
+            <div><i class="fa-brands fa-linkedin"></i>{{ resume[14] }}</div>
+            {% endif %}
+
+            {% if resume[14] %}
+            <div><i class="fa-brands fa-github"></i>{{ resume[15] }}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <div class="text">{{ resume[10] }}</div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    {% if resume[13] %}
+    <div class="section">
+        <div class="section-title">Experience</div>
+        <ul>
+            {% for exp in resume[13].split(',') %}
+                {% set parts = exp.split(' - ', 1) %}
+                <li>
+                    <strong>{{ parts[0] }}</strong>
+                    {% if parts|length > 1 %} – {{ parts[1] }}{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- EDUCATION -->
+    <div class="section">
+        <div class="section-title">Education</div>
+        <ul>
+            <li><b>Post Graduation:</b> {{ resume[9] }}</li>
+            <li><b>Degree:</b> {{ resume[8] }}</li>
+            <li><b>12th:</b> {{ resume[7] }}</li>
+            <li><b>10th:</b> {{ resume[6] }}</li>
+        </ul>
+    </div>
+
+    <!-- PROJECTS -->
+    {% if resume[12] %}
+    <div class="section">
+        <div class="section-title">Projects</div>
+        <ul>
+            {% for project in resume[12].split(',') %}
+                {% set parts = project.split(' - ', 1) %}
+                <li>
+                    <strong>{{ parts[0] }}</strong>
+                    {% if parts|length > 1 %} – {{ parts[1] }}{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- CERTIFICATIONS -->
+    {% if resume[5] %}
+    <div class="section">
+        <div class="section-title">Certifications</div>
+        <ul>
+            {% for cert in resume[5].split(',') %}
+            <li>{{ cert }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- SKILLS -->
+    {% if resume[11] %}
+    <div class="section">
+        <div class="section-title">Skills</div>
+        <ul class="skills-list">
+            {% for skill in resume[11].split(',') %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

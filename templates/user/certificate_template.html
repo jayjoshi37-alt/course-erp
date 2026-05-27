@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@page {
+    size: A4 landscape;
+    margin: 0;
+}
+
+body {
+    font-family: "Times New Roman", serif;
+    background: #f8f9fa;
+}
+
+.certificate {
+    width: 100%;
+    height: 100%;
+    border: 12px solid #1F3C88;
+    padding: 60px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.title {
+    font-size: 42px;
+    font-weight: bold;
+    color: #1F3C88;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.name {
+    font-size: 34px;
+    font-weight: bold;
+    margin: 30px 0;
+}
+
+.course {
+    font-size: 26px;
+    font-style: italic;
+    color: #1F3C88;
+}
+
+.footer {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.signature img {
+    height: 60px;
+}
+</style>
+</head>
+
+<body>
+<div class="certificate">
+
+    <div class="title">CERTIFICATE OF COMPLETION</div>
+
+    <div class="subtitle">
+        This certificate is proudly presented to
+    </div>
+
+    <div class="name">{{ user_name }}</div>
+
+    <div class="subtitle">
+        for successfully completing the course
+    </div>
+
+    <div class="course">{{ course_title }}</div>
+
+    <div class="subtitle">
+        Instructor: <b>{{ instructor_name }}</b>
+    </div>
+
+    <div class="footer">
+        <div>
+            Certificate No: {{ certificate_no }}<br>
+            Issued on: {{ issued_date }}
+        </div>
+
+        <div class="signature">
+             <img src="file:///{{ signature_path }}">
+
+            <div>Authorized Signatory</div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
